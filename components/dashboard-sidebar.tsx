@@ -20,7 +20,6 @@ import Image from "next/image";
 interface MenuItem {
   label: string;
   href: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   icon: any;
 }
 
@@ -41,10 +40,8 @@ export default function DashboardSidebar() {
     { label: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
 
-  // 🔥 EXACT MATCH + SUB ROUTES ACTIVE
-  const isActiveFor = (href: string) => {
-    return pathname === href || pathname.startsWith(href + "/");
-  };
+  const isActiveFor = (href: string) =>
+    pathname === href || pathname.startsWith(href + "/");
 
   const handleLogout = () => {
     if (confirm("Are you sure you want to logout?")) {
@@ -54,7 +51,7 @@ export default function DashboardSidebar() {
 
   return (
     <>
-      {/* Toggle Button for Mobile */}
+      {/* Mobile Toggle Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed top-20 left-4 z-50 p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors lg:hidden"
@@ -62,7 +59,7 @@ export default function DashboardSidebar() {
         {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
       </button>
 
-      {/* Mobile Overlay */}
+      {/* Overlay */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
@@ -73,17 +70,16 @@ export default function DashboardSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 top-10 h-[calc(100vh-96px)] w-72 bg-card overflow-y-auto transition-transform duration-300 z-40 flex flex-col",
+          "fixed left-0 -top-4  h-[980px] w-72 bg-card overflow-y-auto scrollbar-hide transition-transform duration-300 z-40 flex flex-col shadow-2xl rounded-r-2xl",
           !isOpen && "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="p-6 space-y-4 flex-1">
-          {/* Logo */}
-          <div className="flex items-center justify-center p-2">
+          <div className="flex items-center justify-center p-2 my-4">
+          
             <Image src="/service.png" alt="service logo" width={100} height={100} />
           </div>
 
-          {/* Menu Items */}
           {menuItems.map((item) => {
             const Icon = item.icon;
             const active = isActiveFor(item.href);
@@ -106,19 +102,18 @@ export default function DashboardSidebar() {
           })}
         </div>
 
-        {/* Logout Button */}
-        <div className="p-6">
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground/70 hover:bg-red-500/10 hover:text-red-600 transition-colors font-medium"
-          >
-            <LogOut className="w-5 h-5" />
-            <span>Logout</span>
-          </button>
-        </div>
+     <div className="p-6 flex justify-center">
+  <button
+    onClick={handleLogout}
+    className="w-1/2 flex items-center bg-[#CD0000] gap-3 px-4 py-3 rounded-lg transition-colors font-medium"
+  >
+    <LogOut className="w-5 h-5 text-white" />
+    <span className="text-white">Logout</span>
+  </button>
+</div>
+
       </aside>
 
-      {/* Content margin */}
       <div className="lg:ml-72 transition-margin duration-300"></div>
     </>
   );

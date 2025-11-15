@@ -16,8 +16,8 @@ export default function DashboardLayout({
       <div className="flex-1 lg:ml-64">   {/* FIXED GAP */}
 
         {/* 🔥 Sticky Top Navbar */}
-        <div className="sticky top-0 mt-20">
-          <div className="flex justify-between items-center border p-3 rounded-2xl">
+        <div className="sticky top-0 ">
+          <div className="flex justify-between items-center border p-4 rounded-2xl mx-4">
             <div className="flex flex-col">
               <h3 className="text-lg font-semibold">Welcome, Sidney</h3>
               <p className="text-sm text-gray-600">Have a nice day</p>
