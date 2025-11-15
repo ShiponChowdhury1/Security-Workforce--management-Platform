@@ -28,18 +28,18 @@ export default function DashboardSidebar() {
   const pathname = usePathname() ?? "/";
 
   const menuItems: MenuItem[] = [
-    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { label: "Subscriptions", href: "/dashboard/subscriptions", icon: CreditCard },
-    { label: "Verification Center", href: "/dashboard/verification", icon: CheckCircle },
-    { label: "Operative Manage", href: "/dashboard/operative", icon: MessageSquare },
-    { label: "Company Manage", href: "/dashboard/company", icon: Calendar },
-    { label: "Jobs", href: "/dashboard/jobs", icon: MessageSquare },
-    { label: "Contract list", href: "/dashboard/contract", icon: MessageSquare },
-    { label: "Payroll Reports", href: "/dashboard/payroll", icon: MessageSquare },
-    { label: "Referral Manage", href: "/dashboard/referral", icon: MessageSquare },
-    { label: "Settings", href: "/dashboard/settings", icon: Settings },
+    { label: "Dashboard", href: "/dashboard", icon: "/dashboard.png" },
+    { label: "Subscriptions", href: "/dashboard/subscriptions", icon: "/subscription.png"},
+    { label: "Verification Center", href: "/dashboard/verification", icon: "/verification.png" },
+    { label: "Operative Manage", href: "/dashboard/operative", icon: "/security.png" },
+    { label: "Company Manage", href: "/dashboard/company", icon: "/company.png" },
+    { label: "Jobs", href: "/dashboard/jobs", icon: "/jobs" },
+    { label: "Contract list", href: "/dashboard/contract", icon: "/contract.png" },
+    { label: "Payroll Reports", href: "/dashboard/payroll", icon: "/referral.png" },
+    { label: "Referral Manage", href: "/dashboard/referral", icon: "/payroll.png" },
+    { label: "Settings", href: "/dashboard/settings", icon: "/Settings.png"},
   ];
-
+ console.log(menuItems)
   const isActiveFor = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
 
@@ -80,26 +80,32 @@ export default function DashboardSidebar() {
             <Image src="/service.png" alt="service logo" width={100} height={100} />
           </div>
 
-          {menuItems.map((item) => {
-            const Icon = item.icon;
-            const active = isActiveFor(item.href);
+        {menuItems.map((item) => {
+  const active = isActiveFor(item.href);
 
-            return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-                  active
-                    ? "bg-[#002147] text-white font-medium"
-                    : "text-foreground/70 hover:bg-accent/50"
-                )}
-              >
-                <Icon className="w-5 h-5" />
-                <span>{item.label}</span>
-              </Link>
-            );
-          })}
+  return (
+    <Link
+      key={item.label}
+      href={item.href}
+      className={cn(
+        "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+        active
+          ? "bg-[#002147] text-white font-medium"
+          : "text-foreground/70 hover:bg-accent/50"
+      )}
+    >
+      <Image
+        src={item.icon}
+        alt={item.label}
+        width={20}
+        height={20}
+        className="w-5 h-5"
+      />
+
+      <span>{item.label}</span>
+    </Link>
+  );
+})}
         </div>
 
      <div className="p-6 flex justify-center">
