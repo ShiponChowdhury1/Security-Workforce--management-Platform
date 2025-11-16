@@ -13,6 +13,11 @@ import {
   CreditCard,
   CheckCircle,
   LogOut,
+  ShieldCheck,
+  Building2,
+  Briefcase,
+  FileText,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -20,7 +25,7 @@ import Image from "next/image";
 interface MenuItem {
   label: string;
   href: string;
-  icon: any;
+  icon: React.ComponentType<any>;
 }
 
 export default function DashboardSidebar() {
@@ -28,18 +33,18 @@ export default function DashboardSidebar() {
   const pathname = usePathname() ?? "/";
 
   const menuItems: MenuItem[] = [
-    { label: "Dashboard", href: "/dashboard", icon: "/dashboard.png" },
-    { label: "Subscriptions", href: "/dashboard/subscriptions", icon: "/subscription.png"},
-    { label: "Verification Center", href: "/dashboard/verification", icon: "/verification.png" },
-    { label: "Operative Manage", href: "/dashboard/operative", icon: "/security.png" },
-    { label: "Company Manage", href: "/dashboard/company", icon: "/company.png" },
-    { label: "Jobs", href: "/dashboard/jobs", icon: "/jobs" },
-    { label: "Contract list", href: "/dashboard/contract", icon: "/contract.png" },
-    { label: "Payroll Reports", href: "/dashboard/payroll", icon: "/referral.png" },
-    { label: "Referral Manage", href: "/dashboard/referral", icon: "/payroll.png" },
-    { label: "Settings", href: "/dashboard/settings", icon: "/Settings.png"},
+    { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { label: "Subscriptions", href: "/dashboard/subscriptions", icon: CreditCard },
+    { label: "Verification Center", href: "/dashboard/verification", icon: ShieldCheck },
+    { label: "Operative Manage", href: "/dashboard/operative", icon: MessageSquare },
+    { label: "Company Manage", href: "/dashboard/company", icon: Building2 },
+    { label: "Jobs", href: "/dashboard/jobs", icon: Briefcase },
+    { label: "Contract list", href: "/dashboard/contract", icon: FileText },
+    { label: "Payroll Reports", href: "/dashboard/payroll", icon: Users },
+    { label: "Referral Manage", href: "/dashboard/referral", icon: Calendar },
+    { label: "Settings", href: "/dashboard/settings", icon: Settings },
   ];
- console.log(menuItems)
+
   const isActiveFor = (href: string) =>
     pathname === href || pathname.startsWith(href + "/");
 
@@ -70,54 +75,47 @@ export default function DashboardSidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed left-0 -top-4  h-[980px] w-72 bg-card overflow-y-auto scrollbar-hide transition-transform duration-300 z-40 flex flex-col shadow-2xl rounded-r-2xl",
+          "fixed left-0 -top-4 h-[980px] w-72 bg-card overflow-y-auto scrollbar-hide transition-transform duration-300 z-40 flex flex-col shadow-2xl rounded-r-2xl",
           !isOpen && "-translate-x-full lg:translate-x-0"
         )}
       >
         <div className="p-6 space-y-4 flex-1">
           <div className="flex items-center justify-center p-2 my-4">
-          
             <Image src="/service.png" alt="service logo" width={100} height={100} />
           </div>
 
-        {menuItems.map((item) => {
-  const active = isActiveFor(item.href);
+          {menuItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActiveFor(item.href);
 
-  return (
-    <Link
-      key={item.label}
-      href={item.href}
-      className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
-        active
-          ? "bg-[#002147] text-white font-medium"
-          : "text-foreground/70 hover:bg-accent/50"
-      )}
-    >
-      <Image
-        src={item.icon}
-        alt={item.label}
-        width={20}
-        height={20}
-        className="w-5 h-5"
-      />
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-colors",
+                  active
+                    ? "bg-[#002147] text-white font-medium"
+                    : "text-foreground/70 hover:bg-accent/50"
+                )}
+              >
+                <Icon className="w-5 h-5" />
 
-      <span>{item.label}</span>
-    </Link>
-  );
-})}
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
         </div>
 
-     <div className="p-6 flex justify-center">
-  <button
-    onClick={handleLogout}
-    className="w-1/2 flex items-center bg-[#CD0000] gap-3 px-4 py-3 rounded-lg transition-colors font-medium"
-  >
-    <LogOut className="w-5 h-5 text-white" />
-    <span className="text-white">Logout</span>
-  </button>
-</div>
-
+        <div className="p-6 flex justify-center">
+          <button
+            onClick={handleLogout}
+            className="w-1/2 flex items-center bg-[#CD0000] gap-3 px-4 py-3 rounded-lg transition-colors font-medium"
+          >
+            <LogOut className="w-5 h-5 text-white" />
+            <span className="text-white">Logout</span>
+          </button>
+        </div>
       </aside>
 
       <div className="lg:ml-72 transition-margin duration-300"></div>
