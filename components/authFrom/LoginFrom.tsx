@@ -87,7 +87,7 @@ const LoginForm = () => {
           {/* Submit Button */}
           <Button
             type="submit"
-            className="w-full bg-[#002147] text-lg rounded-2xl p-6 text-white"
+            className="w-full bg-[#002147] text-lg rounded-2xl p-2 text-white"
           >
             Login
           </Button>
